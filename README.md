@@ -1,17 +1,46 @@
 # OpenBrain v1.0
 
-Confidence-aware whole-brain MRI parcellation release: 35,838 brain-extracted
-T1-weighted MRI cases drawn from 607 OpenNeuro source datasets carrying
-CC0 / public-domain-compatible license metadata. Each case ships a SynthStrip
-brain mask, an automated whole-brain segmentation, seven reference-free
-quality-control axes (Q1 brain leakage, Q2 volume outliers, Q3 distant
-components, Q4 intensity coefficient of variation, Q5 committee Dice,
-Q6 voxel entropy, Q7 volume coefficient of variation), seven within-source
-percentile risks ($r_1$..$r_7$), the combined risk $R = \overline{r_k}$, and a
-confidence tier (HighConf / Standard / Flagged) at $K{=}25\%/75\%$ percentile
-cuts on $R$. Labels are AI-generated; the release does not claim manual
-ground-truth quality. Downstream users can filter, re-weight, audit, or
-re-threshold without rerunning inference.
+OpenBrain is a release of brain MRI parcellations with per-case quality
+information attached to every label. We ship 35,838 T1-weighted MRI
+cases drawn from 607 OpenNeuro source datasets that carry CC0 or
+public-domain-compatible licenses. Each case carries a brain mask, an
+automated whole-brain parcellation, and a quality manifest that lets a
+downstream user judge how much to trust the labels for that case.
+
+The labels are produced by a segmentation model, not by a human. The
+release does not claim manual ground-truth quality. What it offers is
+*per-case quality evidence* alongside the labels: seven reference-free
+quality checks per case, plus a single combined risk score and a
+confidence tier, so users can filter, weight, audit, or re-threshold
+without rerunning the segmentation model.
+
+## What's in the release
+
+For every released case:
+
+- the preprocessed T1-weighted image,
+- a brain mask (SynthStrip),
+- an automated whole-brain segmentation,
+- seven per-case quality scores (the QC axes below) plus their
+  within-source percentile risks and a combined risk score,
+- a confidence tier: HighConf, Standard, or Flagged.
+
+The seven QC axes:
+
+| Axis | What it checks | Lower means better? |
+|------|----------------|---------------------|
+| Q1 | label voxels falling outside the brain mask (leakage) | yes |
+| Q2 | regions whose volume is an outlier within the source dataset | yes |
+| Q3 | label components disconnected from the main region body | yes |
+| Q4 | within-region intensity inhomogeneity in the T1 image | yes |
+| Q5 | spatial agreement among three independent segmentation models | no (higher = better) |
+| Q6 | voxel-level vote uncertainty among the three models | yes |
+| Q7 | volume disagreement among the three models per region | yes |
+
+Each axis is converted to a within-source percentile rank, and the
+combined risk is the average of those seven ranks. The HighConf,
+Standard, and Flagged tiers are the lowest 25%, middle 50%, and highest
+25% of the combined risk within the released cases.
 
 ## Quick start
 
@@ -19,21 +48,21 @@ re-threshold without rerunning inference.
 git clone <this-repo>.git openbrain && cd openbrain
 pip install -e .
 
-# compute the QC manifest on a single case
+# Compute the seven QC axes on a single case
 python -m qc --case-dir <path/to/case>
 
-# load the released manifest and inspect tier composition
+# Inspect tier composition of the released manifest
 python -c "import pandas as pd; m = pd.read_csv('<path-to>/openbrain_v1_0_qc_manifest.csv'); print(m['tier'].value_counts())"
 ```
 
-## Dataset
+## Dataset hosting
 
 OpenBrain v1.0 is hosted on Hugging Face during double-blind review:
 
 `https://huggingface.co/datasets/openbrain-anon/openbrain_v1_0`
 
-The release tree mirrors the metadata files in `data/` and is described by
-a Croissant 1.0 metadata file (`croissant.json`).
+A machine-readable dataset card following the Croissant 1.1 spec is
+available as `croissant.json` in both this repo and the dataset.
 
 ## Citation
 
@@ -51,27 +80,32 @@ a Croissant 1.0 metadata file (`croissant.json`).
 
 ## License
 
-- Code in this repository: MIT (see `LICENSE`).
-- Dataset (images, masks, labels, manifests) released on Hugging Face: CC0 1.0.
+Code in this repository is released under the MIT license. The dataset
+itself is released under CC0 1.0 (see the Hugging Face dataset page).
 
-## Repository contents
+## Repository layout
 
-- `qc/` — the seven per-case QC axes (Q1..Q7), the source-local percentile
-  combiner, and the `python -m qc` driver.
-- `selection/` — High / Random / Low training-arm selectors that turn the
-  released manifest into fixed-size training subsets.
-- `eval/` — evaluation entrypoints: 96-label macro Dice, retention-quality
-  sweep, partial correlations between QC axes, paired-contrast comparisons,
-  small-structure sensitivity.
-- `data/` — `label_map.json`, `def_a_label_ids.json` (the 16-ROI
-  small-structure subset used in the paper), and `manifest_schema.md`.
-- `croissant.json` — machine-readable dataset card.
-- `DATASHEET.md` — Gebru-style datasheet.
-- `REVIEWER_REPLICATION.md` — copy-paste walk-through to reproduce the
-  paper's main numbers.
+- `qc/` — implementation of the seven QC checks and the per-source
+  percentile combiner that produces the combined risk and tier for a
+  given case. `python -m qc --help` for the command-line driver.
+- `selection/` — three selection scripts that turn the released manifest
+  into matched-size training subsets: a high-confidence subset, a
+  random baseline, and a low-confidence subset.
+- `eval/` — evaluation entrypoints used in the paper: 96-label macro
+  Dice, retention-quality sweep, partial correlations across QC axes,
+  paired contrasts between training subsets, and the small-structure
+  sensitivity analysis.
+- `data/` — reference files: the 110-class label map, the 16-region
+  small-structure subset used in the paper, and a schema description of
+  the released QC manifest CSV.
+- `croissant.json` — the Croissant 1.1 dataset card.
+- `DATASHEET.md` — datasheet following the format of Gebru et al.
+- `REVIEWER_REPLICATION.md` — a copy-paste walk-through that reproduces
+  the paper's main numbers from the released manifest plus a
+  reviewer-supplied evaluation cohort.
 
-## Anonymous repository statement
+## Anonymity statement
 
 This repository accompanies a NeurIPS 2026 Evaluations & Datasets Track
-submission and is provided without author or institutional information for
-double-blind review.
+submission. It is provided without author or institutional information
+for double-blind review.
