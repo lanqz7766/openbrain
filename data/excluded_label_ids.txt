@@ -1,0 +1,26 @@
+# OpenBrain v1.0 unified-exclusion label IDs.
+#
+# 14 label IDs are excluded from the 110-class space to produce the
+# 96-label "unified macro" used for cross-cohort comparison. The
+# exclusions are the dataset-conditional mismatch / vessels / unknowns
+# that are unstable to evaluate against external GTs.
+#
+# Background (0) is always excluded.
+#
+# This list is the canonical paper exclusion ("unified_exclusion_labels_v1").
+0
+4 # Left-Inf-Lat-Vent
+19 # Left-vessel
+20 # Left-choroid-plexus
+21 # Right-Inf-Lat-Vent
+35 # Right-vessel
+36 # Right-choroid-plexus
+37 # 5th-Ventricle
+38 # WM-hypointensities (unstable across cohorts)
+39 # non-WM-hypointensities
+40 # Optic-Chiasm
+46 # CC_Posterior (varying CC parcellation across GTs)
+47 # CC_Mid_Posterior
+48 # CC_Central
+77 # ctx-lh-unknown
+78 # ctx-rh-unknown

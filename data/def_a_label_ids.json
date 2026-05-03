@@ -1,0 +1,28 @@
+{
+ "description": "Def-A 16-ROI small-structure panel (FreeSurfer aseg IDs) used for the small-structure sensitivity analysis in the paper.",
+ "fs_id_to_fs_name": {
+ "10": "Left-Thalamus-Proper",
+ "49": "Right-Thalamus-Proper",
+ "11": "Left-Caudate",
+ "50": "Right-Caudate",
+ "12": "Left-Putamen",
+ "51": "Right-Putamen",
+ "13": "Left-Pallidum",
+ "52": "Right-Pallidum",
+ "17": "Left-Hippocampus",
+ "53": "Right-Hippocampus",
+ "18": "Left-Amygdala",
+ "54": "Right-Amygdala",
+ "26": "Left-Accumbens-area",
+ "58": "Right-Accumbens-area",
+ "28": "Left-VentralDC",
+ "60": "Right-VentralDC"
+ },
+ "name_aliases": {
+ "Left-Thalamus-Proper": ["Left-Thalamus-Proper", "Left-Thalamus"],
+ "Right-Thalamus-Proper": ["Right-Thalamus-Proper", "Right-Thalamus"]
+ },
+ "openbrain_internal_ids_via_label_map": [
+ 7, 23, 8, 28, 9, 29, 10, 30, 14, 31, 15, 32, 17, 33, 18, 34
+ ]
+}
