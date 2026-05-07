@@ -55,6 +55,33 @@ python -m qc --case-dir <path/to/case>
 python -c "import pandas as pd; m = pd.read_csv('<path-to>/openbrain_v1_0_qc_manifest.csv'); print(m['tier'].value_counts())"
 ```
 
+## Reviewer sample
+
+The Hugging Face dataset includes a standalone reviewer preview subset under
+`sample/`. It contains 64 source-diverse HighConf cases, each with:
+
+- `image.nii.gz`
+- `brain_mask.nii.gz`
+- `whole_brain_segmentation.nii.gz`
+
+Download only the sample:
+
+```bash
+bash examples/download_sample.sh openbrain_v1_0_sample
+```
+
+Create a quick PNG preview:
+
+```bash
+python examples/preview_sample_case.py \
+  --case-dir openbrain_v1_0_sample/sample/cases/<case_id> \
+  --output preview.png
+```
+
+The sample is selected for low combined risk and visual cleanliness, so it is
+appropriate for reviewer preview and smoke tests. It is still a pseudo-label
+sample, not manual ground truth.
+
 ## Dataset hosting
 
 OpenBrain v1.0 is hosted on Hugging Face during double-blind review:
@@ -95,6 +122,8 @@ itself is released under CC0 1.0 (see the Hugging Face dataset page).
   Dice, retention-quality sweep, partial correlations across QC axes,
   paired contrasts between training subsets, and the small-structure
   sensitivity analysis.
+- `examples/` — sample download and NIfTI preview scripts for reviewer
+  inspection.
 - `data/` — reference files: the 110-class label map, the 16-region
   small-structure subset used in the paper, and a schema description of
   the released QC manifest CSV.

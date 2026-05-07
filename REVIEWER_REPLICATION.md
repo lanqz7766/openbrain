@@ -36,13 +36,21 @@ hf download openbrain-anon/openbrain_v1_0 \
     --include "metadata/**" --include "croissant.json" --include "LICENSE" \
     --repo-type dataset --local-dir .
 
-# (Optional) Download a 5-case sample to smoke-test QC:
+# (Optional) Download the 64-case reviewer sample to inspect examples and smoke-test QC:
 hf download openbrain-anon/openbrain_v1_0 \
     --include "sample/**" --repo-type dataset --local-dir .
 
 # (Optional) Download all 35,838 cases (~191 GB):
 hf download openbrain-anon/openbrain_v1_0 \
     --include "cases/**" --repo-type dataset --local-dir .
+```
+
+To render a quick image/mask/segmentation preview for one sample case:
+
+```bash
+python examples/preview_sample_case.py \
+    --case-dir $OPENBRAIN_RELEASE_ROOT/sample/cases/<case_id> \
+    --output $OPENBRAIN_ANALYSIS_ROOT/sample_preview.png
 ```
 
 ## 3. Smoke-test the QC pipeline on one case
