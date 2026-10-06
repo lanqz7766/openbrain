@@ -15,11 +15,10 @@ signals so that researchers can study how downstream metrics depend on
 pseudo-label confidence without re-running expensive committee inference.
 
 **Who created the dataset and on behalf of which entity?**
-Anonymous (NeurIPS 2026 Datasets & Benchmarks track submission).
+Qizhen Lan, Yu-Chun Hsu, Yuxiang Wei, Lijing Zhu, Zenan Sun, Liang He, Lishan Yu, Xiaoqian Jiang.
 
 **Who funded the creation of the dataset?**
-Funding information is omitted for double-blind review. A funding statement
-will be added to the camera-ready release.
+A funding statement will be added to the camera-ready release.
 
 ---
 
@@ -172,10 +171,9 @@ participants. Any clinical decision-making.
 ## 6. Distribution
 
 **How will the dataset be distributed?**
-The dataset is hosted on Hugging Face under an anonymous user during
-double-blind review:
-`https://huggingface.co/datasets/openbrain-anonymous/openbrain_v1_0`.
-The Croissant 1.0 record at `croissant.json` is the canonical machine-
+The dataset is publicly hosted on Hugging Face:
+https://huggingface.co/datasets/lanqz7766/OpenBrain.
+The Croissant 1.1 record at `croissant.json` is the canonical machine-
 readable description.
 
 **Is there a fee?**
@@ -200,13 +198,10 @@ compatibility verified in the license audit.
 ## 7. Maintenance
 
 **Who will be supporting/hosting/maintaining the dataset?**
-The anonymous authors during the review period; a permanent maintainer
-identity will be added at camera-ready.
+Qizhen Lan maintains the release under the `lanqz7766` Hugging Face account.
 
 **How can the owner/curator/manager of the dataset be contacted?**
-For double-blind review: `openbrain-anonymous-contact@neurips-anonymous.org`
-(placeholder anonymous routing). After camera-ready: a permanent contact
-email and a GitHub issues queue.
+Contact Qizhen Lan at `Qizhen.Lan@uth.tmc.edu`.
 
 **Is there an erratum?**
 The repository will track known issues in `KNOWN_ISSUES.md` after
@@ -230,7 +225,7 @@ drops the affected rows and bumps the patch version. Requests should be
 sent to the contact address above.
 
 **Will older versions be supported?**
-Yes. v1.0 is the long-lived "submission" release; subsequent v1.x
+Yes. v1.0 is the long-lived v1.0 release; subsequent v1.x
 versions will be additive whenever possible, and we will keep all
 historical versions accessible on Hugging Face under their tagged
 revisions.
@@ -238,5 +233,5 @@ revisions.
 **If others want to extend/augment/build on the dataset, is there a
 mechanism for them to do so?**
 Yes. Users can fork this repository and contribute new QC axes via
-pull request once the repo is de-anonymised. The `core7/` package is
+pull request. The `qc/` package is
 designed to be extensible (each axis is a self-contained module).

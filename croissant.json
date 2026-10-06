@@ -54,14 +54,14 @@
     "http://mlcommons.org/croissant/RAI/1.0"
   ],
   "name": "OpenBrain v1.0",
-  "alternateName": "OpenBrain: Confidence-Tiered Brain MRI Pseudo-Label Release v1.0",
+  "alternateName": "OpenBrain: An Auditable Generated-Label Release for Whole-Brain MRI Parcellation",
   "description": "OpenBrain v1.0 is a confidence-aware whole-brain MRI parcellation release. It contains 35,838 brain-extracted T1-weighted MRI cases drawn from 607 OpenNeuro source datasets that carry CC0/public-domain-compatible license metadata. Each case ships (i) a SynthStrip brain mask, (ii) an automated whole-brain segmentation produced by a 3D residual-encoder U-Net trained on 1,189 scans with FreeSurfer 7.4.1 reference labels, (iii) seven raw reference-free quality-control values per case (brain-mask leakage, region-volume outliers, distant components, intensity homogeneity, committee Dice, voxel-vote entropy, committee volume coefficient of variation), (iv) seven within-source percentile-risk values derived from those checks, (v) the combined per-case risk score (the equal-weighted mean of the seven percentile risks), and (vi) a confidence tier (HighConf, Standard, or Flagged) at the 25%/75% quantile cuts on the combined risk score. Labels are produced by segmenters trained on FreeSurfer-curated reference labels; the release does not claim manually annotated ground-truth quality. Users can filter, weight, audit, or re-threshold cases using the released quality manifest without rerunning inference.",
   "license": "https://creativecommons.org/publicdomain/zero/1.0/",
   "version": "1.0.0",
   "datePublished": "2026-05-06",
   "dateCreated": "2026-04-30",
   "isLiveDataset": false,
-  "url": "https://huggingface.co/datasets/openbrain-anon/openbrain_v1_0",
+  "url": "https://huggingface.co/datasets/lanqz7766/OpenBrain",
   "keywords": [
     "brain MRI",
     "T1-weighted",
@@ -73,15 +73,46 @@
     "neuroimaging",
     "FreeSurfer-aligned"
   ],
-  "creator": {
-    "@type": "sc:Organization",
-    "name": "Anonymous (NeurIPS Evaluations & Datasets 2026 submission)"
-  },
+  "creator": [
+    {
+      "@type": "sc:Person",
+      "name": "Qizhen Lan"
+    },
+    {
+      "@type": "sc:Person",
+      "name": "Yu-Chun Hsu"
+    },
+    {
+      "@type": "sc:Person",
+      "name": "Yuxiang Wei"
+    },
+    {
+      "@type": "sc:Person",
+      "name": "Lijing Zhu"
+    },
+    {
+      "@type": "sc:Person",
+      "name": "Zenan Sun"
+    },
+    {
+      "@type": "sc:Person",
+      "name": "Liang He"
+    },
+    {
+      "@type": "sc:Person",
+      "name": "Lishan Yu"
+    },
+    {
+      "@type": "sc:Person",
+      "name": "Xiaoqian Jiang"
+    }
+  ],
   "publisher": {
-    "@type": "sc:Organization",
-    "name": "Anonymous"
+    "@type": "sc:Person",
+    "name": "Qizhen Lan",
+    "url": "https://huggingface.co/lanqz7766"
   },
-  "citeAs": "@inproceedings{openbrain2026, author = {Anonymous}, title = {OpenBrain: A Large-Scale, Multi-Source, & Confidence-Tiered Brain MRI Pseudo-Label Release for Population-Scale Parcellation and Reference-Free Quality Control}, booktitle = {Advances in Neural Information Processing Systems Evaluations & Datasets Track}, year = {2026}}",
+  "citeAs": "@inproceedings{lan2026openbrain,\n  title = {OpenBrain: An Auditable Generated-Label Release for Whole-Brain MRI Parcellation},\n  author = {Lan, Qizhen and Hsu, Yu-Chun and Wei, Yuxiang and Zhu, Lijing and Sun, Zenan and He, Liang and Yu, Lishan and Jiang, Xiaoqian},\n  booktitle = {Advances in Neural Information Processing Systems, Evaluations \\& Datasets Track},\n  year = {2026}\n}",
   "rai:dataLimitations": [
     "Released labels are produced by a brain-MRI segmenter trained on FreeSurfer 7.4.1 reference labels; they are not manually annotated ground truth. This dataset is not recommended for clinical decision support, individual-patient diagnosis, or fine-tuning of production diagnostic systems.",
     "The canonical pseudo-label segmenter inherits FreeSurfer 7.4.1 region conventions; users following alternative atlases (DKT-only, AAL, JHU) may observe boundary differences not captured by the released quality panel.",
@@ -145,7 +176,7 @@
       "@id": "openbrain_v1_0_metadata.csv",
       "name": "openbrain_v1_0_metadata.csv",
       "description": "Case-level core metadata for OpenBrain release candidates and released cases: BIDS identifiers, source dataset DOI/snapshot, demographic fields (age, sex, race, handedness, weight, BMI), scanner fields (manufacturer, model, field strength, repetition time, echo time, phase encoding direction), and release-path fields. The canonical 35,838-case hosted release is defined by metadata/openbrain_v1_0_qc_manifest.csv; this metadata table may include additional provenance-audited candidates retained for accounting. Coverage of demographic and scanner fields varies; see rai:dataBiases.",
-      "contentUrl": "https://huggingface.co/datasets/openbrain-anon/openbrain_v1_0/resolve/main/metadata/openbrain_v1_0_metadata.csv",
+      "contentUrl": "https://huggingface.co/datasets/lanqz7766/OpenBrain/resolve/main/metadata/openbrain_v1_0_metadata.csv",
       "encodingFormat": "text/csv",
       "sha256": "3ee84bc3e7daae4e29d910ff316658db1d33c79b492d020288d352f4c8974a5c"
     },
@@ -154,7 +185,7 @@
       "@id": "openbrain_v1_0_qc_manifest.csv",
       "name": "openbrain_v1_0_qc_manifest.csv",
       "description": "Per-case QC-7 manifest: case_id, source_dataset, raw QC values Q1..Q7, within-source percentile risks r1..r7, combined risk R, and confidence tier (HighConf/Standard/Flagged). Tier counts in v1.0: HighConf 8,960 (25.0%) / Standard 17,918 (50.0%) / Flagged 8,960 (25.0%).",
-      "contentUrl": "https://huggingface.co/datasets/openbrain-anon/openbrain_v1_0/resolve/main/metadata/openbrain_v1_0_qc_manifest.csv",
+      "contentUrl": "https://huggingface.co/datasets/lanqz7766/OpenBrain/resolve/main/metadata/openbrain_v1_0_qc_manifest.csv",
       "encodingFormat": "text/csv",
       "sha256": "3b073972b106ec085aaed52be1987db3206ab6b97dbb541bde68ec0b27b24b36"
     },
@@ -163,7 +194,7 @@
       "@id": "label_map_whole_brain_segmentation.json",
       "name": "label_map_whole_brain_segmentation.json",
       "description": "Mapping from OpenBrain internal segmentation label IDs (1..110) to anatomical names (FreeSurfer-aligned). Note: OpenBrain internal label IDs are NOT identical to FreeSurfer aseg IDs; resolve by name match.",
-      "contentUrl": "https://huggingface.co/datasets/openbrain-anon/openbrain_v1_0/resolve/main/metadata/label_map_whole_brain_segmentation.json",
+      "contentUrl": "https://huggingface.co/datasets/lanqz7766/OpenBrain/resolve/main/metadata/label_map_whole_brain_segmentation.json",
       "encodingFormat": "application/json",
       "sha256": "16a9cfd3083b1a88b88d65892e46fd7fc9ed8048ac78072bbd9d9956a162ccd4"
     },
@@ -172,7 +203,7 @@
       "@id": "openneuro_dataset_audit.csv",
       "name": "openneuro_dataset_audit.csv",
       "description": "Per-OpenNeuro-source provenance audit: dataset name, snapshot tag, DOI, license, and case counts for release sources and retained provenance-accounting sources. The canonical 35,838-case hosted release is defined by metadata/openbrain_v1_0_qc_manifest.csv.",
-      "contentUrl": "https://huggingface.co/datasets/openbrain-anon/openbrain_v1_0/resolve/main/metadata/openneuro_dataset_audit.csv",
+      "contentUrl": "https://huggingface.co/datasets/lanqz7766/OpenBrain/resolve/main/metadata/openneuro_dataset_audit.csv",
       "encodingFormat": "text/csv",
       "sha256": "2f78ba8a728666cb76165a02827c2cac4973448b50f664c249c162aa6b40224c"
     },
@@ -181,7 +212,7 @@
       "@id": "openneuro_case_path_audit.csv",
       "name": "openneuro_case_path_audit.csv",
       "description": "Case-path provenance audit for release candidates and released cases: matched BIDS path within the OpenNeuro snapshot, original raw T1w image path, match status, and notes. The canonical 35,838-case hosted release is defined by metadata/openbrain_v1_0_qc_manifest.csv.",
-      "contentUrl": "https://huggingface.co/datasets/openbrain-anon/openbrain_v1_0/resolve/main/metadata/openneuro_case_path_audit.csv",
+      "contentUrl": "https://huggingface.co/datasets/lanqz7766/OpenBrain/resolve/main/metadata/openneuro_case_path_audit.csv",
       "encodingFormat": "text/csv",
       "sha256": "e290704cb2431c33c32a7e142284ea554a62bee9f93aed4f1f782eda4f0fee9f"
     },
@@ -190,7 +221,7 @@
       "@id": "excluded_cases_summary.csv",
       "name": "excluded_cases_summary.csv",
       "description": "Audit trail of cases excluded between the 42,732-case provenance pool and the 35,838-case CC0 release: per-case drop reason (license, OpenNeuro provenance missing, ambiguous BIDS match, raw T1w match missing, or manual review).",
-      "contentUrl": "https://huggingface.co/datasets/openbrain-anon/openbrain_v1_0/resolve/main/metadata/excluded_cases_summary.csv",
+      "contentUrl": "https://huggingface.co/datasets/lanqz7766/OpenBrain/resolve/main/metadata/excluded_cases_summary.csv",
       "encodingFormat": "text/csv",
       "sha256": "5749ba66d231c459f0786067b27ef69e78f2684d84c867bd327c8bf601eecdf0"
     },
@@ -199,7 +230,7 @@
       "@id": "sha256_manifest.csv",
       "name": "sha256_manifest.csv",
       "description": "SHA-256 hashes of every released artifact: image.nii.gz, brain_mask.nii.gz, whole_brain_segmentation.nii.gz per case.",
-      "contentUrl": "https://huggingface.co/datasets/openbrain-anon/openbrain_v1_0/resolve/main/metadata/sha256_manifest.csv",
+      "contentUrl": "https://huggingface.co/datasets/lanqz7766/OpenBrain/resolve/main/metadata/sha256_manifest.csv",
       "encodingFormat": "text/csv",
       "sha256": "ba5c4052cba600f7f90d7ec4ef466fbf40493c1869eee211b9ad8b652f063165"
     },
@@ -496,7 +527,6 @@
       ]
     }
   ],
-  "sameAs": "https://anonymous.4open.science/r/openbrain-C255",
   "rai:dataCollection": "OpenBrain v1.0 source data was collected between August 2024 and April 2026 by selecting OpenNeuro snapshots whose licence metadata is CC0 or public-domain-compatible, matching T1-weighted MRI scans to BIDS subject and session identifiers under each verified snapshot, and de-duplicating within source. Subsequent preprocessing, label generation, and quality scoring are described under prov:wasGeneratedBy.",
   "rai:dataCollectionType": [
     "Secondary Data Analysis",
@@ -519,5 +549,6 @@
     "Preprocessing-integrity gating: cases where SynthStrip refused or where the resampled volume was empty are excluded before any label generation or quality scoring.",
     "Source-local percentile-risk normalisation: each raw quality-check value is converted to a within-source rank in [0, 1] before being averaged into the combined risk score."
   ],
-  "rai:dataAnnotationProtocol": "Released labels are produced by trained segmenters rather than human annotators. The canonical released label per case comes from a 3D residual-encoder U-Net trained on 1,189 brain MRI scans with FreeSurfer 7.4.1 reference labels. Two committee segmenters (SwinUNETR and UNETR), trained against the same FreeSurfer-aligned reference space, are run in parallel; their outputs are not the canonical released label but feed three of the seven per-case quality checks (committee Dice, voxel-vote entropy, committee volume coefficient of variation). No per-case manual review is performed on the OpenBrain release. Human supervision enters upstream through the FreeSurfer-curated training data of all three segmenters and downstream through Mindboggle-101, a manually annotated external cohort that is held out for confirmatory evaluation rather than redistributed."
+  "rai:dataAnnotationProtocol": "Released labels are produced by trained segmenters rather than human annotators. The canonical released label per case comes from a 3D residual-encoder U-Net trained on 1,189 brain MRI scans with FreeSurfer 7.4.1 reference labels. Two committee segmenters (SwinUNETR and UNETR), trained against the same FreeSurfer-aligned reference space, are run in parallel; their outputs are not the canonical released label but feed three of the seven per-case quality checks (committee Dice, voxel-vote entropy, committee volume coefficient of variation). No per-case manual review is performed on the OpenBrain release. Human supervision enters upstream through the FreeSurfer-curated training data of all three segmenters and downstream through Mindboggle-101, a manually annotated external cohort that is held out for confirmatory evaluation rather than redistributed.",
+  "sameAs": "https://github.com/lanqz7766/openbrain"
 }

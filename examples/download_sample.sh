@@ -2,7 +2,7 @@
 set -euo pipefail
 
 OUT_DIR="${1:-openbrain_v1_0_sample}"
-REPO_ID="${OPENBRAIN_HF_REPO:-openbrain-anon/openbrain_v1_0}"
+REPO_ID="${OPENBRAIN_HF_REPO:-lanqz7766/OpenBrain}"
 
 mkdir -p "${OUT_DIR}"
 

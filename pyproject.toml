@@ -9,7 +9,7 @@ description = "Reference-free QC, selection, and evaluation toolkit for the Open
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
-authors = [{ name = "Anonymous" }]
+authors = [{ name = "Qizhen Lan", email = "Qizhen.Lan@uth.tmc.edu" }]
 keywords = ["brain MRI", "segmentation", "quality control", "benchmark"]
 classifiers = [
  "License :: OSI Approved :: MIT License",
@@ -44,8 +44,8 @@ gpu = [
 ]
 
 [project.urls]
-Homepage = "https://huggingface.co/datasets/openbrain-anonymous/openbrain_v1_0"
-Repository = "https://github.com/openbrain-anonymous/openbrain"
+Homepage = "https://huggingface.co/datasets/lanqz7766/OpenBrain"
+Repository = "https://github.com/lanqz7766/openbrain"
 
 [project.scripts]
 openbrain-core7 = "core7.__main__:main"

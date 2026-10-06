@@ -1,22 +1,51 @@
 cff-version: 1.2.0
 message: "If you use OpenBrain v1.0, please cite the following work."
-title: "OpenBrain: A Large-Scale, Multi-Source, and Confidence-Tiered Brain MRI Pseudo-Label Release for Population-Scale Parcellation and Reference-Free Quality Control"
+title: "OpenBrain: An Auditable Generated-Label Release for Whole-Brain MRI Parcellation"
 version: "1.0.0"
 date-released: "2026-05-06"
-url: "https://huggingface.co/datasets/openbrain-anonymous/openbrain_v1_0"
+url: "https://github.com/lanqz7766/openbrain"
 license: MIT
 authors:
- - name: "Anonymous"
+  - family-names: "Lan"
+    given-names: "Qizhen"
+  - family-names: "Hsu"
+    given-names: "Yu-Chun"
+  - family-names: "Wei"
+    given-names: "Yuxiang"
+  - family-names: "Zhu"
+    given-names: "Lijing"
+  - family-names: "Sun"
+    given-names: "Zenan"
+  - family-names: "He"
+    given-names: "Liang"
+  - family-names: "Yu"
+    given-names: "Lishan"
+  - family-names: "Jiang"
+    given-names: "Xiaoqian"
 keywords:
- - brain MRI
- - whole-brain segmentation
- - quality control
- - benchmark
- - dataset
+  - brain MRI
+  - whole-brain segmentation
+  - quality control
+  - dataset
 preferred-citation:
- type: conference-paper
- title: "OpenBrain: A Large-Scale, Multi-Source, and Confidence-Tiered Brain MRI Pseudo-Label Release for Population-Scale Parcellation and Reference-Free Quality Control"
- year: 2026
- collection-title: "Advances in Neural Information Processing Systems Evaluations & Datasets Track"
- authors:
- - name: "Anonymous"
+  type: conference-paper
+  title: "OpenBrain: An Auditable Generated-Label Release for Whole-Brain MRI Parcellation"
+  year: 2026
+  collection-title: "Advances in Neural Information Processing Systems, Evaluations & Datasets Track"
+  authors:
+    - family-names: "Lan"
+      given-names: "Qizhen"
+    - family-names: "Hsu"
+      given-names: "Yu-Chun"
+    - family-names: "Wei"
+      given-names: "Yuxiang"
+    - family-names: "Zhu"
+      given-names: "Lijing"
+    - family-names: "Sun"
+      given-names: "Zenan"
+    - family-names: "He"
+      given-names: "Liang"
+    - family-names: "Yu"
+      given-names: "Lishan"
+    - family-names: "Jiang"
+      given-names: "Xiaoqian"

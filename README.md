@@ -1,5 +1,11 @@
 # OpenBrain v1.0
 
+**OpenBrain: An Auditable Generated-Label Release for Whole-Brain MRI Parcellation**
+
+Accepted to NeurIPS 2026, Evaluations & Datasets Track.
+
+[Paper](https://openreview.net/forum?id=dR9OMtUEEC) · [Dataset](https://huggingface.co/datasets/lanqz7766/OpenBrain)
+
 OpenBrain is a release of brain MRI parcellations with per-case quality
 information attached to every label. We ship 35,838 T1-weighted MRI
 cases drawn from 607 OpenNeuro source datasets that carry CC0 or
@@ -45,11 +51,15 @@ Standard, and Flagged tiers are the lowest 25%, middle 50%, and highest
 ## Quick start
 
 ```bash
-git clone <this-repo>.git openbrain && cd openbrain
+git clone https://github.com/lanqz7766/openbrain.git
+cd openbrain
 pip install -e .
 
-# Compute the seven QC axes on a single case
-python -m qc --case-dir <path/to/case>
+# Compute per-case QC values (Q2 is computed across the cohort)
+python -m qc --case-dir <path/to/cases> \
+  --m1-dir <path/to/primary_parcellations> \
+  --m2-dir <path/to/committee_2> --m3-dir <path/to/committee_3> \
+  --output qc.csv
 
 # Inspect tier composition of the released manifest
 python -c "import pandas as pd; m = pd.read_csv('<path-to>/openbrain_v1_0_qc_manifest.csv'); print(m['tier'].value_counts())"
@@ -84,9 +94,7 @@ sample, not manual ground truth.
 
 ## Dataset hosting
 
-OpenBrain v1.0 is hosted on Hugging Face during double-blind review:
-
-`https://huggingface.co/datasets/openbrain-anon/openbrain_v1_0`
+OpenBrain v1.0 is publicly available on [Hugging Face](https://huggingface.co/datasets/lanqz7766/OpenBrain).
 
 A machine-readable dataset card following the Croissant 1.1 spec is
 available as `croissant.json` in both this repo and the dataset.
@@ -94,14 +102,11 @@ available as `croissant.json` in both this repo and the dataset.
 ## Citation
 
 ```bibtex
-@inproceedings{openbrain2026,
-  author    = {Anonymous},
-  title     = {OpenBrain: A Large-Scale, Multi-Source, and Confidence-Tiered
-               Brain MRI Pseudo-Label Release for Population-Scale
-               Parcellation and Reference-Free Quality Control},
-  booktitle = {Advances in Neural Information Processing Systems
-               Evaluations \& Datasets Track},
-  year      = {2026}
+@inproceedings{lan2026openbrain,
+  title = {OpenBrain: An Auditable Generated-Label Release for Whole-Brain MRI Parcellation},
+  author = {Lan, Qizhen and Hsu, Yu-Chun and Wei, Yuxiang and Zhu, Lijing and Sun, Zenan and He, Liang and Yu, Lishan and Jiang, Xiaoqian},
+  booktitle = {Advances in Neural Information Processing Systems, Evaluations \& Datasets Track},
+  year = {2026}
 }
 ```
 
@@ -133,8 +138,8 @@ itself is released under CC0 1.0 (see the Hugging Face dataset page).
   the paper's main numbers from the released manifest plus a
   reviewer-supplied evaluation cohort.
 
-## Anonymity statement
+## Authors and contact
 
-This repository accompanies a NeurIPS 2026 Evaluations & Datasets Track
-submission. It is provided without author or institutional information
-for double-blind review.
+Qizhen Lan, Yu-Chun Hsu, Yuxiang Wei, Lijing Zhu, Zenan Sun, Liang He, Lishan Yu, Xiaoqian Jiang.
+
+Maintained by Qizhen Lan. For questions about the release, contact [Qizhen.Lan@uth.tmc.edu](mailto:Qizhen.Lan@uth.tmc.edu).

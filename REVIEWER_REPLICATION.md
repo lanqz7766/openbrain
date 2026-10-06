@@ -32,16 +32,16 @@ export OPENBRAIN_ANALYSIS_ROOT=/path/to/scratch_outputs
 
 ```bash
 mkdir -p $OPENBRAIN_RELEASE_ROOT && cd $OPENBRAIN_RELEASE_ROOT
-hf download openbrain-anon/openbrain_v1_0 \
+hf download lanqz7766/OpenBrain \
     --include "metadata/**" --include "croissant.json" --include "LICENSE" \
     --repo-type dataset --local-dir .
 
 # (Optional) Download the 64-case reviewer sample to inspect examples and smoke-test QC:
-hf download openbrain-anon/openbrain_v1_0 \
+hf download lanqz7766/OpenBrain \
     --include "sample/**" --repo-type dataset --local-dir .
 
 # (Optional) Download all 35,838 cases (~191 GB):
-hf download openbrain-anon/openbrain_v1_0 \
+hf download lanqz7766/OpenBrain \
     --include "cases/**" --repo-type dataset --local-dir .
 ```
 
