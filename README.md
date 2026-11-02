@@ -1,11 +1,42 @@
-# OpenBrain
+<h1 align="center">OpenBrain</h1>
+
+<p align="center"><strong>An Auditable Generated-Label Release for Whole-Brain MRI Parcellation</strong></p>
+
+<p align="center">
+  <a href="https://openreview.net/forum?id=dR9OMtUEEC"><img src="https://img.shields.io/badge/NeurIPS_2026-Accepted_%C2%B7_E%26D-2563eb?style=flat-square" alt="Accepted at NeurIPS 2026, Evaluations & Datasets Track"></a>
+  <a href="https://huggingface.co/datasets/lanqz7766/OpenBrain"><img src="https://img.shields.io/badge/%F0%9F%A4%97-Dataset-f5c451?style=flat-square" alt="Hugging Face dataset"></a>
+  <a href="https://huggingface.co/datasets/lanqz7766/OpenBrain/blob/main/LICENSE"><img src="https://img.shields.io/badge/Data-CC0--1.0-64748b?style=flat-square" alt="Data license: CC0 1.0"></a>
+  <a href="./LICENSE"><img src="https://img.shields.io/badge/Code-MIT-64748b?style=flat-square" alt="Code license: MIT"></a>
+</p>
+
+<p align="center">
+  Qizhen Lan · Yu-Chun Hsu · Yuxiang Wei · Lijing Zhu<br>
+  Zenan Sun · Liang He · Lishan Yu · Xiaoqian Jiang<sup>†</sup><br>
+  <sub><sup>†</sup>Corresponding author<br>
+  Contact: <a href="mailto:Qizhen.Lan@uth.tmc.edu">Qizhen.Lan@uth.tmc.edu</a></sub>
+</p>
+
+<p align="center">
+  <a href="https://openreview.net/forum?id=dR9OMtUEEC">https://openreview.net/forum?id=dR9OMtUEEC</a><br>
+  <a href="https://huggingface.co/datasets/lanqz7766/OpenBrain">https://huggingface.co/datasets/lanqz7766/OpenBrain</a>
+</p>
+
+<p align="center">
+  <a href="#results">Results</a> · <a href="#quality-checks">Quality checks</a> · <a href="#download">Download</a> · <a href="#usage">Usage</a> · <a href="#citation">Citation</a>
+</p>
+
+**Accepted at NeurIPS 2026, Evaluations & Datasets Track.**
 
 Whole-brain MRI parcellations for 35,838 public T1-weighted scans, each with a per-case quality record.
 
-Paper: [OpenBrain: An Auditable Generated-Label Release for Whole-Brain MRI Parcellation](https://openreview.net/forum?id=dR9OMtUEEC), NeurIPS 2026 Evaluations & Datasets Track.
-Data: [huggingface.co/datasets/lanqz7766/OpenBrain](https://huggingface.co/datasets/lanqz7766/OpenBrain) (CC0).
+<p align="center">
+  <a href="assets/overview.png"><img src="assets/overview.png" width="900" alt="A standard generated-label release versus OpenBrain"></a><br>
+  <sub>Figure 1 · A standard generated-label release (left) and OpenBrain (right)</sub>
+</p>
 
-![Overview](assets/overview.png)
+| Scans | Source datasets | Regions per scan | Quality checks per scan | License |
+|:---:|:---:|:---:|:---:|:---:|
+| **35,838** | **607** | **110** | **7** | **CC0** |
 
 The scans come from 607 OpenNeuro datasets. Each has a brain mask and a
 110-region parcellation produced by ModernSurfer, a 3D residual U-Net trained
@@ -21,7 +52,10 @@ We trained nnU-Net on 1,000 cases from the low-risk end of the release, 1,000
 random cases, and 1,000 from the high-risk end, and evaluated on three
 external cohorts.
 
-<p align="center"><img src="assets/training_selection.png" width="640" alt="Macro Dice by training selection"></p>
+<p align="center">
+  <a href="assets/training_selection.png"><img src="assets/training_selection.png" width="640" alt="Macro Dice by training selection"></a><br>
+  <sub>Figure 2 · Macro Dice of nnU-Net trained on higher-risk, random, and lower-risk selections</sub>
+</p>
 
 | Training set | Mindboggle-101 (n=101) | BrainLat (n=394) | IXI (n=563) |
 |---|---|---|---|
@@ -42,7 +76,10 @@ A low-risk and a high-risk case from the release: parcellation, voxel
 disagreement among the three models, and the seven checks as within-dataset
 percentiles.
 
-![A low-risk and a high-risk case](assets/release_examples.png)
+<p align="center">
+  <a href="assets/release_examples.png"><img src="assets/release_examples.png" width="900" alt="A low-risk and a high-risk case"></a><br>
+  <sub>Figure 3 · A low-risk (left) and a high-risk (right) case from the release</sub>
+</p>
 
 ## Quality checks
 
@@ -138,4 +175,3 @@ analyses. The data and code are for research use, not clinical use.
 
 Code: MIT. Data: CC0. Source scans are from OpenNeuro under CC0 or equivalent terms.
 
-Contact: Qizhen Lan, Qizhen.Lan@uth.tmc.edu.
