@@ -57,16 +57,11 @@ external cohorts.
   <sub>Figure 2 · Macro Dice of nnU-Net trained on higher-risk, random, and lower-risk selections</sub>
 </p>
 
-| Training set | Mindboggle-101 (n=101) | BrainLat (n=394) | IXI (n=563) |
-|---|---|---|---|
-| 1,000 lower-risk cases | **0.746** | **0.719** | **0.769** |
-| 1,000 random cases | 0.710 | 0.687 | 0.733 |
-| 1,000 higher-risk cases | 0.456 | 0.458 | 0.490 |
-| lower-risk minus random (pp, paired 95% CI) | +3.6 [+2.8, +4.4] | +3.2 [+2.6, +3.8] | +3.7 [+3.2, +4.2] |
-
-Within a cohort, keeping the quarter of cases with the lowest `R` raises macro
-Dice by 1.3 points on IXI, 3.7 on BrainLat, and 1.5 on Mindboggle-101, the
-cohort with manual labels. The lower-risk and random training sets differ in
+The lower-risk model beats the random one by 3.2 to 3.7 Dice points on all
+three cohorts (paired 95% CIs exclude zero), and the higher-risk model trails
+by more than 20 points. Within a cohort, keeping the quarter of cases with the
+lowest `R` raises macro Dice by 1.3 points on IXI, 3.7 on BrainLat, and 1.5 on
+Mindboggle-101, the cohort with manual labels. The lower-risk and random training sets differ in
 source composition as well as in risk, and IXI and BrainLat use
 FreeSurfer-derived references; see the Limitations section of the paper.
 
