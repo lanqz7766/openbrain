@@ -18,7 +18,7 @@ pseudo-label confidence without re-running expensive committee inference.
 Qizhen Lan, Yu-Chun Hsu, Yuxiang Wei, Lijing Zhu, Zenan Sun, Liang He, Lishan Yu, Xiaoqian Jiang.
 
 **Who funded the creation of the dataset?**
-A funding statement will be added to the camera-ready release.
+This work was supported in part by the National Institute on Aging under awards U01AG079847, R01AG082721, and R01AG083039.
 
 ---
 
@@ -29,7 +29,7 @@ Each instance is a single brain MRI scan (subject session) of a human
 participant, drawn from a public OpenNeuro snapshot. An instance includes:
 the revised T1-weighted image, the SynthStrip brain mask, an automated
 whole-brain segmentation label, seven raw QC values (Q1..Q7), seven
-within-source percentile risks (r1..r7), the combined risk R = mean(r1..r7),
+percentile risks (r1..r7, ranks over the QC pool), the combined risk R = mean(r1..r7),
 and a confidence tier (HighConf, Standard, or Flagged).
 
 **How many instances are there in total?**
@@ -53,9 +53,9 @@ segmenter (a Dataset012-trained variant of the ModernSurfer architecture).
 truth.** They are intended for benchmarking, not for clinical use.
 
 **Is any information missing?**
-A small fraction of cases have partial coverage of the M2 and M3 committee
-predictions; for those cases Q5/Q6/Q7 are NaN and the tier defaults to
-Standard. This is documented in the manifest schema.
+No. Every released case has all seven quality values, all seven percentile
+risks, the combined risk and a tier. Cases with incomplete committee
+predictions were excluded before release.
 
 **Are there recommended data splits?**
 We deliberately do not impose train/val/test splits. The release ships
@@ -124,9 +124,10 @@ redistribute raw T1w volumes; we redistribute the revised/brain-extracted
 images derived from them under the CC0 source licenses.
 
 **Is the software used to preprocess/clean/label the instances available?**
-Yes. The QC computation, retention-sweep, paired-contrast, and dataset
-construction code is in this repository. Inference recipes for M1/M2/M3 are
-in `inference/`.
+Yes. The QC computation, retention-sweep, paired-contrast, and selection code
+is in this repository. M1 is ModernSurfer (https://github.com/JunMa11/ModernSurfer);
+M2 and M3 are SwinUNETR and UNETR trained on the same reference labels; their
+checkpoints are not part of this repository.
 
 ---
 

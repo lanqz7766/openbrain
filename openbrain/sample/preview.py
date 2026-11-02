@@ -1,7 +1,7 @@
 """Create a quick PNG preview for one OpenBrain sample case.
 
 The script renders the center axial, coronal, and sagittal slices from
-image.nii.gz and overlays the released whole-brain segmentation.
+t1w_brain.nii.gz and overlays parcellation_modernsurfer.nii.gz.
 """
 
 from __future__ import annotations
@@ -36,8 +36,8 @@ def main() -> None:
     parser.add_argument("--alpha", type=float, default=0.35)
     args = parser.parse_args()
 
-    image_path = args.case_dir / "image.nii.gz"
-    label_path = args.case_dir / "whole_brain_segmentation.nii.gz"
+    image_path = args.case_dir / "t1w_brain.nii.gz"
+    label_path = args.case_dir / "parcellation_modernsurfer.nii.gz"
     mask_path = args.case_dir / "brain_mask.nii.gz"
     for path in [image_path, label_path, mask_path]:
         if not path.exists():

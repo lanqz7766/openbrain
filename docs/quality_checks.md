@@ -1,7 +1,7 @@
 # Quality checks
 
-Every case carries seven raw values `Q1` to `Q7`, seven within-source
-percentiles `r1` to `r7`, the combined risk `R`, and a tier. The
+Every case carries seven raw values `Q1` to `Q7`, seven percentile risks
+`r1` to `r7`, the combined risk `R`, and a tier. The
 `openbrain.qc` package computes them. Appendix I of the paper gives the
 formal definitions; this page gives the one-line versions.
 
@@ -15,12 +15,11 @@ formal definitions; this page gives the one-line versions.
 | Q6 | `vote_entropy.py` | three parcellations | mean Shannon entropy of the three-way vote over foreground voxels | lower |
 | Q7 | `volume_disagreement.py` | three parcellations | mean over regions of std / mean of the three models' volumes | lower |
 
-`combine.py` turns the raw values into percentiles within each source
-dataset (`r5 = 1 - ECDF(Q5)`, the others `r_k = ECDF(Q_k)`), averages them
-into `R`, and assigns tiers. In the released manifest the tiers are the
-lowest quarter, middle half, and top quarter of `R` over the whole release.
-The `combine` module, when run on your own cohort, assigns tiers within each
-source instead; both cut points are flags.
+`combine.py` turns the raw values into percentiles by ranking each case over
+the whole table (`r5 = 1 - ECDF(Q5)`, the others `r_k = ECDF(Q_k)`, mid-ranks
+for ties), averages them into `R`, and assigns tiers as the lowest quarter,
+middle half, and top quarter of `R`. This is how the released `quality.csv`
+was computed; only the Q2 fences are source-specific.
 
 Running the checks on a folder of cases:
 

@@ -4,8 +4,9 @@
 
 Used by the reproduction guide (docs/reproduce.md) to verify that a local
 copy of the released manifest matches the headline counts in the paper.
-The script reads ``quality.csv``, recomputes the
-within-source ECDF on R, and reports the tier counts both globally and
+The script reads ``quality.csv``, re-derives the tiers from R with the
+same quantile cuts as the release (lowest 25% HighConf, top 25% Flagged),
+checks them against the ``tier`` column, and reports the counts globally and
 per source.
 """
 from __future__ import annotations
@@ -36,15 +37,16 @@ def main(argv: list[str] | None = None) -> int:
     if "R" not in df.columns:
         raise SystemExit("manifest is missing required column 'R'")
 
-    def _tier(g: pd.DataFrame) -> pd.DataFrame:
-        ecdf_R = ecdf_percentile(g["R"].to_numpy())
-        g = g.assign(_ecdf=ecdf_R)
-        g["tier"] = "Standard"
-        g.loc[g["_ecdf"] <= args.k_high, "tier"] = "HighConf"
-        g.loc[g["_ecdf"] >= args.k_flag, "tier"] = "Flagged"
-        return g.drop(columns=["_ecdf"])
-
-    out = df.groupby("source", group_keys=False).apply(_tier)
+    out = df.copy()
+    ecdf_R = ecdf_percentile(out["R"].to_numpy())
+    out["tier_recomputed"] = "Standard"
+    out.loc[ecdf_R <= args.k_high, "tier_recomputed"] = "HighConf"
+    out.loc[ecdf_R >= args.k_flag, "tier_recomputed"] = "Flagged"
+    if "tier" in out.columns:
+        agree = (out["tier"] == out["tier_recomputed"]).mean()
+        print(f"[check] recomputed tiers agree with the tier column on {agree:.4%} of cases")
+    else:
+        out["tier"] = out["tier_recomputed"]
     counts_global = out["tier"].value_counts().to_dict()
     counts_per_src = (
         out.groupby(["source", "tier"]).size().unstack(fill_value=0).reset_index()

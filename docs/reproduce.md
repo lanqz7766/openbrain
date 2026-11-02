@@ -27,10 +27,9 @@ python -m openbrain.evaluation.tier_counts \
     --manifest $RELEASE/metadata/quality.csv --output $OUT/tiers
 ```
 
-Takes about 25 minutes on the full manifest. Note that this script
-re-derives tiers within each source dataset; the `tier` column in
-`quality.csv` is defined over the whole release (8,960 / 17,918 / 8,960), so
-the two sets of counts differ.
+Re-derives the tiers from `R` with the release cut points and reports how
+often they agree with the `tier` column; the global counts should be
+8,960 / 17,918 / 8,960.
 
 ## Macro Dice on an evaluation cohort
 

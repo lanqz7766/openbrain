@@ -88,39 +88,48 @@ percentiles.
 | Q6 | vote uncertainty | voxel-level disagreement among the three models |
 | Q7 | volume disagreement | region volumes differ among the three models |
 
-Each check is converted to a percentile within its OpenNeuro dataset, with Q5
-inverted so that higher always means riskier. `R` is the mean of the seven
+Each check is converted to a percentile over all cases, with Q5 inverted so
+that higher always means riskier. `R` is the mean of the seven
 percentiles. Sorting the release by `R`, the lowest quarter is HighConf, the
 middle half Standard, and the top quarter Flagged. Raw values are released, so
 other weightings and cutoffs are possible.
 
 ## Release contents
 
-- `image.nii.gz`: skull-stripped T1w, 1 mm isotropic
-- `brain_mask.nii.gz`: SynthStrip mask
-- `whole_brain_segmentation.nii.gz`: 110-region parcellation
-- `metadata/quality.csv`: `Q1` to `Q7`, `r1` to `r7`, `R`, tier
-- `metadata/cases.csv`: OpenNeuro dataset, snapshot, DOI, license, original path, and age, sex, and scanner fields where available
+One tar per OpenNeuro dataset under `cases/`, one folder per case inside:
 
-Case ids look like `ds000001__sub-01__ses-DEFAULT__sub-01_T1w`. All columns are described in [docs/manifest_fields.md](docs/manifest_fields.md).
+```
+cases/ds000001.tar
+  ds000001__sub-01__ses-DEFAULT__sub-01_T1w/
+    t1w_brain.nii.gz                  skull-stripped T1w, 1 mm isotropic
+    brain_mask.nii.gz                 SynthStrip mask
+    parcellation_modernsurfer.nii.gz  110-region parcellation (primary label)
+    parcellation_swinunetr.nii.gz     committee model 2
+    parcellation_unetr.nii.gz         committee model 3
+metadata/quality.csv                  Q1 to Q7, r1 to r7, R, tier
+metadata/cases.csv                    OpenNeuro dataset, archive, DOI, license, age, sex and scanner fields where available
+metadata/training_selections.csv      the three 1,000-case training selections of the paper
+sample/                               64 cases, unpacked
+```
+
+All columns are described in [docs/manifest_fields.md](docs/manifest_fields.md).
 
 ## Download
 
 ```bash
-# metadata and quality manifest, about 55 MB
-hf download lanqz7766/OpenBrain --repo-type dataset --local-dir openbrain_v1_0 \
-    --include "metadata/**" --include "croissant.json" --include "LICENSE"
-
-# 64-case sample
-hf download lanqz7766/OpenBrain --repo-type dataset --local-dir openbrain_v1_0 --include "sample/**"
-
-# full release, about 205 GB
-hf download lanqz7766/OpenBrain --repo-type dataset --local-dir openbrain_v1_0
+hf download lanqz7766/OpenBrain --repo-type dataset --local-dir openbrain --include "metadata/**"   # 60 MB
+hf download lanqz7766/OpenBrain --repo-type dataset --local-dir openbrain --include "sample/**"     # 64 cases
+hf download lanqz7766/OpenBrain --repo-type dataset --local-dir openbrain cases/ds000001.tar        # one dataset
+hf download lanqz7766/OpenBrain --repo-type dataset --local-dir openbrain                           # everything, 226 GB
 ```
 
 ```python
+from openbrain import load_case
+case = load_case("ds000001__sub-01__ses-DEFAULT__sub-01_T1w")   # fetches cases/ds000001.tar once
+case.t1w, case.parcellation, case.committee, case.quality["tier"]
+
 import pandas as pd
-m = pd.read_csv("openbrain_v1_0/metadata/quality.csv")
+m = pd.read_csv("openbrain/metadata/quality.csv")
 high_conf = m[m["tier"] == "HighConf"]
 strict    = m[(m["R"] < 0.3) & (m["r1"] < 0.8)]
 ```
@@ -141,6 +150,7 @@ described in [docs/quality_checks.md](docs/quality_checks.md), and
 [docs/reproduce.md](docs/reproduce.md) walks through the paper's analyses.
 
 ```
+openbrain/data.py      load_case: fetch one dataset tar, extract a case
 openbrain/qc/          the seven checks, percentile conversion, R and tier
 openbrain/selection/   lower-risk, random, and higher-risk training sets
 openbrain/evaluation/  macro Dice, retention curves, axis correlations, paired contrasts, small structures

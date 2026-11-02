@@ -2,9 +2,10 @@
 """QC reference-free QC pipeline for OpenBrain v1.0.
 
 Each Q axis is a self-contained module with a `compute(...)` entry-point.
-The combiner (`combine`) computes within-source ECDF percentile risks
-r_k = ECDF_D(Q_k) and the average R = mean(r_1, ..., r_7), then assigns
-HighConf / Standard / Flagged tiers using K=25%/75% cuts on R.
+The combiner (`combine`) computes percentile risks r_k = ECDF(Q_k) by
+ranking each case over the whole input table and the average
+R = mean(r_1, ..., r_7), then assigns HighConf / Standard / Flagged tiers
+using the 25%/75% quantiles of R.
 
 See `docs/quality_checks.md` and Appendix I of the paper for the
 mathematical definitions.

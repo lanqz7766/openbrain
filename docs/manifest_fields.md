@@ -25,8 +25,8 @@ One row per released case (35,838 rows).
 
 One row per released case with its provenance and whatever the source
 dataset provides: `openneuro_dataset_name`, `openneuro_snapshot_tag`,
-`dataset_doi`, `dataset_license`, `matched_bids_path`, `openneuro_image_path`,
-the three `release_*_path` columns, `modality`, `age`, `weight`, `bmi`, `sex`,
+`archive` (the tar under `cases/` that holds the case), `dataset_doi`,
+`dataset_license`, `matched_bids_path`, `openneuro_image_path`, `modality`, `age`, `weight`, `bmi`, `sex`,
 `handedness`, `race`, `health_status`, `manufacturer`, `model_name`,
 `phase_encoding_direction`, `magnetic_field_strength`, `repetition_time`,
 `echo_time`. Missing values are left empty, not imputed.
@@ -39,4 +39,7 @@ the three `release_*_path` columns, `modality`, `age`, `weight`, `bmi`, `sex`,
 | `sources.csv` | license and provenance check for every OpenNeuro dataset considered |
 | `raw_paths.csv` | how each case was matched to its raw OpenNeuro file |
 | `excluded.csv` | the 2,620 candidate cases that were not released, by reason |
-| `checksums.csv` | SHA-256 of every released file |
+| `q2_fences.csv` | for every case, whether Q2 used its source's fences or the pooled fences, and the size of the fitting pool |
+| `training_selections.csv` | the cases of the paper's lower-risk, random and higher-risk training selections that are in the release (906, 935, 931) |
+| `archives.csv` | size, case count and SHA-256 of every tar under `cases/` |
+| `checksums.csv` | size and SHA-256 of every file inside the tars |

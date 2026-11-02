@@ -8,13 +8,11 @@ mkdir -p "${OUT_DIR}"
 
 hf download "${REPO_ID}" \
   --repo-type dataset \
-  --include "README.md" \
-  --include "LICENSE" \
-  --include "croissant.json" \
+  --include "metadata/**" \
   --include "sample/**" \
   --local-dir "${OUT_DIR}"
 
 echo "Downloaded OpenBrain sample to ${OUT_DIR}"
 echo "Manifest: ${OUT_DIR}/sample/sample_manifest.csv"
 echo "Preview one case with:"
-echo "  python openbrain/sample/preview.py --case-dir ${OUT_DIR}/sample/cases/<case_id> --output preview.png"
+echo "  python -m openbrain.sample.preview --case-dir ${OUT_DIR}/sample/<case_id> --output preview.png"
