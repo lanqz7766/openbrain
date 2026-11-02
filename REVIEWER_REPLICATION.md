@@ -15,7 +15,7 @@ provides. Total wall-clock excluding cohort downloads:
 Python 3.10 / 3.11 / 3.12. Fresh virtualenv recommended:
 
 ```bash
-git clone <this-repo>.git openbrain && cd openbrain
+git clone https://github.com/lanqz7766/openbrain.git && cd openbrain
 python -m venv .venv && source .venv/bin/activate
 pip install -e .
 ```

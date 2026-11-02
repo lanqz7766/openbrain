@@ -54,7 +54,7 @@
     "http://mlcommons.org/croissant/RAI/1.0"
   ],
   "name": "OpenBrain v1.0",
-  "alternateName": "OpenBrain: An Auditable Generated-Label Release for Whole-Brain MRI Parcellation",
+  "alternateName": "OpenBrain: Confidence-Tiered Brain MRI Pseudo-Label Release v1.0",
   "description": "OpenBrain v1.0 is a confidence-aware whole-brain MRI parcellation release. It contains 35,838 brain-extracted T1-weighted MRI cases drawn from 607 OpenNeuro source datasets that carry CC0/public-domain-compatible license metadata. Each case ships (i) a SynthStrip brain mask, (ii) an automated whole-brain segmentation produced by a 3D residual-encoder U-Net trained on 1,189 scans with FreeSurfer 7.4.1 reference labels, (iii) seven raw reference-free quality-control values per case (brain-mask leakage, region-volume outliers, distant components, intensity homogeneity, committee Dice, voxel-vote entropy, committee volume coefficient of variation), (iv) seven within-source percentile-risk values derived from those checks, (v) the combined per-case risk score (the equal-weighted mean of the seven percentile risks), and (vi) a confidence tier (HighConf, Standard, or Flagged) at the 25%/75% quantile cuts on the combined risk score. Labels are produced by segmenters trained on FreeSurfer-curated reference labels; the release does not claim manually annotated ground-truth quality. Users can filter, weight, audit, or re-threshold cases using the released quality manifest without rerunning inference.",
   "license": "https://creativecommons.org/publicdomain/zero/1.0/",
   "version": "1.0.0",
@@ -76,43 +76,51 @@
   "creator": [
     {
       "@type": "sc:Person",
-      "name": "Qizhen Lan"
+      "name": "Qizhen Lan",
+      "affiliation": "The University of Texas Health Science Center at Houston"
     },
     {
       "@type": "sc:Person",
-      "name": "Yu-Chun Hsu"
+      "name": "Yu-Chun Hsu",
+      "affiliation": "The University of Texas Health Science Center at Houston"
     },
     {
       "@type": "sc:Person",
-      "name": "Yuxiang Wei"
+      "name": "Yuxiang Wei",
+      "affiliation": "Georgia Institute of Technology"
     },
     {
       "@type": "sc:Person",
-      "name": "Lijing Zhu"
+      "name": "Lijing Zhu",
+      "affiliation": "University of Houston-Clear Lake"
     },
     {
       "@type": "sc:Person",
-      "name": "Zenan Sun"
+      "name": "Zenan Sun",
+      "affiliation": "The University of Texas Health Science Center at Houston"
     },
     {
       "@type": "sc:Person",
-      "name": "Liang He"
+      "name": "Liang He",
+      "affiliation": "ETH Zurich"
     },
     {
       "@type": "sc:Person",
-      "name": "Lishan Yu"
+      "name": "Lishan Yu",
+      "affiliation": "The University of Texas Health Science Center at Houston"
     },
     {
       "@type": "sc:Person",
-      "name": "Xiaoqian Jiang"
+      "name": "Xiaoqian Jiang",
+      "affiliation": "The University of Texas Health Science Center at Houston"
     }
   ],
   "publisher": {
-    "@type": "sc:Person",
-    "name": "Qizhen Lan",
-    "url": "https://huggingface.co/lanqz7766"
+    "@type": "sc:Organization",
+    "name": "The University of Texas Health Science Center at Houston, McWilliams School of Biomedical Informatics",
+    "url": "https://sbmi.uth.edu/"
   },
-  "citeAs": "@inproceedings{lan2026openbrain,\n  title = {OpenBrain: An Auditable Generated-Label Release for Whole-Brain MRI Parcellation},\n  author = {Lan, Qizhen and Hsu, Yu-Chun and Wei, Yuxiang and Zhu, Lijing and Sun, Zenan and He, Liang and Yu, Lishan and Jiang, Xiaoqian},\n  booktitle = {Advances in Neural Information Processing Systems, Evaluations \\& Datasets Track},\n  year = {2026}\n}",
+  "citeAs": "@inproceedings{lan2026openbrain, author = {Lan, Qizhen and Hsu, Yu-Chun and Wei, Yuxiang and Zhu, Lijing and Sun, Zenan and He, Liang and Yu, Lishan and Jiang, Xiaoqian}, title = {OpenBrain: An Auditable Generated-Label Release for Whole-Brain MRI Parcellation}, booktitle = {Advances in Neural Information Processing Systems (NeurIPS), Evaluations and Datasets Track}, year = {2026}}",
   "rai:dataLimitations": [
     "Released labels are produced by a brain-MRI segmenter trained on FreeSurfer 7.4.1 reference labels; they are not manually annotated ground truth. This dataset is not recommended for clinical decision support, individual-patient diagnosis, or fine-tuning of production diagnostic systems.",
     "The canonical pseudo-label segmenter inherits FreeSurfer 7.4.1 region conventions; users following alternative atlases (DKT-only, AAL, JHU) may observe boundary differences not captured by the released quality panel.",
@@ -527,6 +535,7 @@
       ]
     }
   ],
+  "sameAs": "https://github.com/lanqz7766/openbrain",
   "rai:dataCollection": "OpenBrain v1.0 source data was collected between August 2024 and April 2026 by selecting OpenNeuro snapshots whose licence metadata is CC0 or public-domain-compatible, matching T1-weighted MRI scans to BIDS subject and session identifiers under each verified snapshot, and de-duplicating within source. Subsequent preprocessing, label generation, and quality scoring are described under prov:wasGeneratedBy.",
   "rai:dataCollectionType": [
     "Secondary Data Analysis",
@@ -549,6 +558,5 @@
     "Preprocessing-integrity gating: cases where SynthStrip refused or where the resampled volume was empty are excluded before any label generation or quality scoring.",
     "Source-local percentile-risk normalisation: each raw quality-check value is converted to a within-source rank in [0, 1] before being averaged into the combined risk score."
   ],
-  "rai:dataAnnotationProtocol": "Released labels are produced by trained segmenters rather than human annotators. The canonical released label per case comes from a 3D residual-encoder U-Net trained on 1,189 brain MRI scans with FreeSurfer 7.4.1 reference labels. Two committee segmenters (SwinUNETR and UNETR), trained against the same FreeSurfer-aligned reference space, are run in parallel; their outputs are not the canonical released label but feed three of the seven per-case quality checks (committee Dice, voxel-vote entropy, committee volume coefficient of variation). No per-case manual review is performed on the OpenBrain release. Human supervision enters upstream through the FreeSurfer-curated training data of all three segmenters and downstream through Mindboggle-101, a manually annotated external cohort that is held out for confirmatory evaluation rather than redistributed.",
-  "sameAs": "https://github.com/lanqz7766/openbrain"
+  "rai:dataAnnotationProtocol": "Released labels are produced by trained segmenters rather than human annotators. The canonical released label per case comes from a 3D residual-encoder U-Net trained on 1,189 brain MRI scans with FreeSurfer 7.4.1 reference labels. Two committee segmenters (SwinUNETR and UNETR), trained against the same FreeSurfer-aligned reference space, are run in parallel; their outputs are not the canonical released label but feed three of the seven per-case quality checks (committee Dice, voxel-vote entropy, committee volume coefficient of variation). No per-case manual review is performed on the OpenBrain release. Human supervision enters upstream through the FreeSurfer-curated training data of all three segmenters and downstream through Mindboggle-101, a manually annotated external cohort that is held out for confirmatory evaluation rather than redistributed."
 }
