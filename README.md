@@ -30,7 +30,7 @@
 Whole-brain MRI parcellations for 35,838 public T1-weighted scans, each with a per-case quality record.
 
 <p align="center">
-  <a href="assets/overview.png"><img src="assets/overview.png" width="900" alt="A standard generated-label release versus OpenBrain"></a><br>
+  <a href="docs/figures/overview.png"><img src="docs/figures/overview.png" width="900" alt="A standard generated-label release versus OpenBrain"></a><br>
   <sub>Figure 1 · A standard generated-label release (left) and OpenBrain (right)</sub>
 </p>
 
@@ -53,7 +53,7 @@ random cases, and 1,000 from the high-risk end, and evaluated on three
 external cohorts.
 
 <p align="center">
-  <a href="assets/training_selection.png"><img src="assets/training_selection.png" width="640" alt="Macro Dice by training selection"></a><br>
+  <a href="docs/figures/training_selection.png"><img src="docs/figures/training_selection.png" width="640" alt="Macro Dice by training selection"></a><br>
   <sub>Figure 2 · Macro Dice of nnU-Net trained on higher-risk, random, and lower-risk selections</sub>
 </p>
 
@@ -72,7 +72,7 @@ disagreement among the three models, and the seven checks as within-dataset
 percentiles.
 
 <p align="center">
-  <a href="assets/release_examples.png"><img src="assets/release_examples.png" width="900" alt="A low-risk and a high-risk case"></a><br>
+  <a href="docs/figures/release_examples.png"><img src="docs/figures/release_examples.png" width="900" alt="A low-risk and a high-risk case"></a><br>
   <sub>Figure 3 · A low-risk (left) and a high-risk (right) case from the release</sub>
 </p>
 
@@ -99,28 +99,28 @@ other weightings and cutoffs are possible.
 - `image.nii.gz`: skull-stripped T1w, 1 mm isotropic
 - `brain_mask.nii.gz`: SynthStrip mask
 - `whole_brain_segmentation.nii.gz`: 110-region parcellation
-- `metadata/openbrain_v1_0_qc_manifest.csv`: `Q1` to `Q7`, `r1` to `r7`, `R`, tier
-- `metadata/openbrain_v1_0_metadata.csv`: OpenNeuro dataset, snapshot, DOI, license, original path, and age, sex, and scanner fields where available
+- `metadata/quality.csv`: `Q1` to `Q7`, `r1` to `r7`, `R`, tier
+- `metadata/cases.csv`: OpenNeuro dataset, snapshot, DOI, license, original path, and age, sex, and scanner fields where available
 
-Case ids look like `ds000001__sub-01__ses-DEFAULT__sub-01_T1w`.
+Case ids look like `ds000001__sub-01__ses-DEFAULT__sub-01_T1w`. All columns are described in [docs/manifest_fields.md](docs/manifest_fields.md).
 
 ## Download
 
 ```bash
-# metadata and QC manifest, about 55 MB
+# metadata and quality manifest, about 55 MB
 hf download lanqz7766/OpenBrain --repo-type dataset --local-dir openbrain_v1_0 \
     --include "metadata/**" --include "croissant.json" --include "LICENSE"
 
 # 64-case sample
 hf download lanqz7766/OpenBrain --repo-type dataset --local-dir openbrain_v1_0 --include "sample/**"
 
-# full release, about 350 GB
+# full release, about 205 GB
 hf download lanqz7766/OpenBrain --repo-type dataset --local-dir openbrain_v1_0
 ```
 
 ```python
 import pandas as pd
-m = pd.read_csv("openbrain_v1_0/metadata/openbrain_v1_0_qc_manifest.csv")
+m = pd.read_csv("openbrain_v1_0/metadata/quality.csv")
 high_conf = m[m["tier"] == "HighConf"]
 strict    = m[(m["R"] < 0.3) & (m["r1"] < 0.8)]
 ```
@@ -131,23 +131,22 @@ strict    = m[(m["R"] < 0.3) & (m["r1"] < 0.8)]
 git clone https://github.com/lanqz7766/openbrain.git && cd openbrain
 pip install -e .
 
-python -m qc --help
-python -m qc --case-dir <cases> --m1-dir <primary> --m2-dir <committee_2> --m3-dir <committee_3> --output qc.csv
+python -m openbrain.qc --help
+python -m openbrain.qc --case-dir <cases> --m1-dir <primary> --m2-dir <committee_2> --m3-dir <committee_3> --output qc.csv
 ```
 
 Q2 is fit per dataset and needs more than one scan. Q5 to Q7 need the two
-committee outputs; without them those columns are NaN.
-
-`REVIEWER_REPLICATION.md` reproduces the tier counts, retention curves, paired
-training-selection contrasts, and small-structure analysis from the released
-manifest and an evaluation cohort of your own.
+committee outputs; without them those columns are NaN. The checks are
+described in [docs/quality_checks.md](docs/quality_checks.md), and
+[docs/reproduce.md](docs/reproduce.md) walks through the paper's analyses.
 
 ```
-qc/          the seven checks, percentile conversion, R and tier
-selection/   lower-risk, random, and higher-risk training subsets
-eval/        macro Dice, retention sweep, axis correlations, paired contrasts
-examples/    sample download and PNG preview
-data/        label map, 96-region evaluation set, 16-region small-structure set, manifest schema
+openbrain/qc/          the seven checks, percentile conversion, R and tier
+openbrain/selection/   lower-risk, random, and higher-risk training sets
+openbrain/evaluation/  macro Dice, retention curves, axis correlations, paired contrasts, small structures
+openbrain/sample/      download and preview the 64-case sample
+data/                  label map, 96-region evaluation set, 16-region small-structure set
+docs/                  datasheet, reproduction guide, field descriptions, figures
 ```
 
 ## Limitations
