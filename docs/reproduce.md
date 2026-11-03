@@ -65,8 +65,9 @@ done
 
 `--no-iq` is needed because the selectors in the paper also used an
 image-quality score from the OpenMind metadata, which is not part of this
-release; with the flag they rank by `R` alone. Training nnU-Net on each set takes several GPU
-days and is not covered here. With predictions from the three models on a
+release; with the flag they rank by `R` alone. Training nnU-Net (v2, residual-encoder 3d_fullres, 100 epochs of 250
+iterations) on each 1,000-case set took about 6-7 hours on one NVIDIA H100
+80 GB GPU; the training itself is not scripted here. With predictions from the three models on a
 cohort:
 
 ```bash
