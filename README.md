@@ -108,7 +108,7 @@ cases/ds000001.tar
     parcellation_unetr.nii.gz         committee model 3
 metadata/quality.csv                  Q1 to Q7, r1 to r7, R, tier
 metadata/cases.csv                    OpenNeuro dataset, archive, DOI, license, age, sex and scanner fields where available
-metadata/training_selections.csv      the three 1,000-case training selections of the paper
+metadata/training_selections.csv      the paper's three training selections, release part (906 / 935 / 931 cases)
 sample/                               64 cases, unpacked
 ```
 

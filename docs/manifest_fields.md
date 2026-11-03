@@ -17,7 +17,7 @@ One row per released case (35,838 rows).
 | `Q5` | 25th percentile of pairwise per-region Dice among the three models (higher is better) |
 | `Q6` | mean voxel-level entropy of the three-model vote |
 | `Q7` | mean over regions of the coefficient of variation of the three models' volumes |
-| `r1` to `r7` | each `Q` as a percentile within its source dataset; higher is riskier (`Q5` is inverted) |
+| `r1` to `r7` | each `Q` as a percentile over the QC pool; higher is riskier (`Q5` is inverted) |
 | `R` | mean of `r1` to `r7` |
 | `tier` | `HighConf`, `Standard`, or `Flagged`: the lowest quarter, middle half, and top quarter of `R` over the whole release |
 

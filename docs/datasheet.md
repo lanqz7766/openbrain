@@ -42,9 +42,9 @@ public-domain-compatible license, and from which we could exactly match the
 raw T1w to a verified BIDS path.
 
 **What data does each instance consist of?**
-NIfTI images (`image.nii.gz`, `brain_mask.nii.gz`,
-`whole_brain_segmentation.nii.gz`) plus row-aligned entries in the
-metadata CSVs.
+Five NIfTI images (`t1w_brain.nii.gz`, `brain_mask.nii.gz`,
+`parcellation_modernsurfer.nii.gz`, `parcellation_swinunetr.nii.gz`,
+`parcellation_unetr.nii.gz`) plus row-aligned entries in the metadata CSVs.
 
 **Is there a label or target associated with each instance?**
 Yes. The labels are 110-class anatomical parcellations produced by the M1
