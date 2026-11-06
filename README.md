@@ -4,6 +4,7 @@
 
 <p align="center">
   <a href="https://openreview.net/forum?id=dR9OMtUEEC"><img src="https://img.shields.io/badge/NeurIPS_2026-Accepted_%C2%B7_E%26D-2563eb?style=flat-square" alt="Accepted at NeurIPS 2026, Evaluations & Datasets Track"></a>
+  <a href="https://arxiv.org/abs/2611.05348"><img src="https://img.shields.io/badge/arXiv-2611.05348-b31b1b?style=flat-square" alt="arXiv 2611.05348"></a>
   <a href="https://huggingface.co/datasets/lanqz7766/OpenBrain"><img src="https://img.shields.io/badge/%F0%9F%A4%97-Dataset-f5c451?style=flat-square" alt="Hugging Face dataset"></a>
   <a href="https://huggingface.co/datasets/lanqz7766/OpenBrain/blob/main/LICENSE"><img src="https://img.shields.io/badge/Data-CC0--1.0-64748b?style=flat-square" alt="Data license: CC0 1.0"></a>
   <a href="./LICENSE"><img src="https://img.shields.io/badge/Code-MIT-64748b?style=flat-square" alt="Code license: MIT"></a>
@@ -17,7 +18,7 @@
 </p>
 
 <p align="center">
-  <a href="https://openreview.net/forum?id=dR9OMtUEEC">https://openreview.net/forum?id=dR9OMtUEEC</a><br>
+  <a href="https://arxiv.org/abs/2611.05348">https://arxiv.org/abs/2611.05348</a><br>
   <a href="https://huggingface.co/datasets/lanqz7766/OpenBrain">https://huggingface.co/datasets/lanqz7766/OpenBrain</a>
 </p>
 
@@ -173,7 +174,11 @@ analyses. The data and code are for research use, not clinical use.
   title     = {OpenBrain: An Auditable Generated-Label Release for Whole-Brain MRI Parcellation},
   author    = {Lan, Qizhen and Hsu, Yu-Chun and Wei, Yuxiang and Zhu, Lijing and Sun, Zenan and He, Liang and Yu, Lishan and Jiang, Xiaoqian},
   booktitle = {Advances in Neural Information Processing Systems (NeurIPS), Evaluations and Datasets Track},
-  year      = {2026}
+  year      = {2026},
+  eprint    = {2611.05348},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CV},
+  url       = {https://arxiv.org/abs/2611.05348}
 }
 ```
 

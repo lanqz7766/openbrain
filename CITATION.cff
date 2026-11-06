@@ -32,6 +32,14 @@ preferred-citation:
   title: "OpenBrain: An Auditable Generated-Label Release for Whole-Brain MRI Parcellation"
   year: 2026
   collection-title: "Advances in Neural Information Processing Systems, Evaluations & Datasets Track"
+  url: "https://arxiv.org/abs/2611.05348"
+  identifiers:
+    - type: doi
+      value: "10.48550/arXiv.2611.05348"
+      description: "arXiv preprint 2611.05348"
+    - type: url
+      value: "https://openreview.net/forum?id=dR9OMtUEEC"
+      description: "OpenReview"
   authors:
     - family-names: "Lan"
       given-names: "Qizhen"
